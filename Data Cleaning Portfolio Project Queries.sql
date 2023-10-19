@@ -25,45 +25,29 @@ SET TransferDate = CONVERT(Date,TransferDate)
 --------------------------------------------------------------------------------------------------------------------------
 
 
--- Breaking out Address into Individual Columns (Address, City, State)
+-- Breaking out HeightWeight into Individual Columns 
 
-
-Select ClubAddress
+Select HeightWeight
 From PortfolioProject.dbo.FIFA2022
 
 SELECT 
-    PARSENAME(REPLACE(ClubAddress, ',', '.'), 4)
-    PARSENAME(REPLACE(ClubAddress, ',', '.'), 3)
-    PARSENAME(REPLACE(ClubAddress, ',', '.'), 2)
-    PARSENAME(REPLACE(ClubAddress, ',', '.'), 1)
+    PARSENAME(REPLACE(HeightWeight, ',', '.'), 2)
+    PARSENAME(REPLACE(HeightWeight, ',', '.'), 1)
 FROM dbo.FIFA2022;
 
-ALTER TABLE FIFA2022
-Add ClubSplitStreet Nvarchar(255);
-
-Update FIFA2022
-SET ClubSplitStreet = PARSENAME(REPLACE(ClubAddress, ',', '.') , 4)
-
 
 ALTER TABLE FIFA2022
-Add ClubSplitCity Nvarchar(255);
+Add HeightSplitWeight Nvarchar(255);
 
 Update FIFA2022
-SET ClubSplitCity = PARSENAME(REPLACE(ClubAddress, ',', '.') , 3)
+SET HeightSplitWeight = PARSENAME(REPLACE(HeightWeight, ',', '.') , 2)
 
 
 ALTER TABLE FIFA2022
-Add ClubSplitState Nvarchar(255);
+Add HeightSplitWeight Nvarchar(255);
 
 Update FIFA2022
-SET ClubSplitState = PARSENAME(REPLACE(ClubAddress, ',', '.') , 2)
-
-
-ALTER TABLE FIFA2022
-Add ClubSplitCountry Nvarchar(255);
-
-Update FIFA2022
-SET ClubSplitCountry = PARSENAME(REPLACE(ClubAddress, ',', '.') , 1)
+SET HeightSplitWeight = PARSENAME(REPLACE(HeightWeight, ',', '.') , 1)
 
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -94,3 +78,5 @@ SET TransferAsFreePlayer = CASE When TransferAsFreePlayer = 'Y' THEN 'Yes'
 
 SELECT DISTINCT *
 FROM PortfolioProject.dbo.FIFA2022;
+
+
